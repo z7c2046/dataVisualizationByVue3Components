@@ -234,7 +234,7 @@ export default {
   margin: 0;
   padding: 0;
   /* 给所有元素都加上边框方便检查 */
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 body {
@@ -250,10 +250,10 @@ body {
 }
 
 /* 边框方便修改和代码可视化 */
-.mainBox,
+/* .mainBox,
 .mainBox .wrap>div {
   border: 2px solid var(--borderColor);
-}
+} */
 
 .mainBox {
   width: 1200px;
