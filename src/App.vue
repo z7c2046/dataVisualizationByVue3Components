@@ -293,4 +293,23 @@ body {
   grid-template-columns: 1.72fr 1.36fr 1fr;
   grid-template-areas: "ratio monthLine timeSpend";
 }
+
+@media screen and (max-width: 400px) {
+  .mainBox {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    row-gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "monthHistogram monthHistogram"
+      "leaderBoard timeSpend"
+      "weekHistogram monthLine"
+      "donut donut"
+      "ratio ratio"
+      "line summary"
+    ;
+  }
+}
 </style>

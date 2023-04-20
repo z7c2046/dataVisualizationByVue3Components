@@ -16,8 +16,8 @@
 
                     <!-- 根据getRankChange方法的结果显示排名变化和箭头 -->
                     <span class="positive-and-negative-numbers" :style="{
-                        color: getRankChange(store) > 0 ? '#38ab70' : '#df4f46',
-                    }" style="grid-area: positive-and-negative-numbers">
+                            color: getRankChange(store) > 0 ? '#38ab70' : '#df4f46',
+                        }" style="grid-area: positive-and-negative-numbers">
                         {{ getRankChange(store) > 0 ? "+" : "" }}{{ getRankChange(store) }}
                     </span>
 

@@ -4,13 +4,13 @@
             <!-- 标题和扩展箭头代码 -->
         </TitleAndExpandArrow>
 
-        <div class="timeBox">
+        <div class="timeBox" style="grid-area: timeBox;">
             <h1 class="hours">{{ currentTime.hours }}:</h1>
             <h1 class="minutes">{{ currentTime.minutes }}:</h1>
             <h1 class="seconds">{{ currentTime.seconds }}</h1>
         </div>
 
-        <div class="countDownBox">
+        <div class="countDownBox" style="grid-area: countDownBox;">
             <div class="browserleaflets">
                 <h6>{{ countDown.browserleaflets.name }}</h6>
                 <span> {{ countDown.browserleaflets.value }}</span>
@@ -85,11 +85,10 @@ export default {
 <style scoped>
 .timeSpend {
     display: grid;
-    grid-template-rows: 1fr 2fr 3fr;
     grid-template-areas:
         "tittle"
-        "number"
-        "chartBox";
+        "timeBox"
+        "countDownBox";
 }
 
 .timeBox {
@@ -111,9 +110,8 @@ export default {
 }
 
 .countDownBox {
+    height: 100%;
     padding: 0 20px;
-    display: grid;
-    grid-template-rows: 3fr 2fr 1fr;
 }
 
 .countDownBox>div {
@@ -124,19 +122,42 @@ export default {
 
 .countDownBox>div h6 {
     display: grid;
+    align-items: center;
     justify-items: end;
+}
+
+
+.countDownBox>div span {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.browserleaflets {
+    height: 35px;
 }
 
 .browserleaflets span {
     background-color: #31b869;
+
+    border-radius: 10px 10px 0 0;
+}
+
+.shoppingList {
+    height: 25px;
 }
 
 .shoppingList span {
     background-color: #2879ff;
 }
 
+.others {
+    height: 18px;
+}
+
 .others span {
     background-color: #17468a;
+    border-radius: 0 0 10px 10px;
 }
 </style>
   

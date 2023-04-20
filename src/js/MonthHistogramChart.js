@@ -51,7 +51,7 @@ export default class MonthHistogramChart {
                 left: 20,
                 right: 20,
                 top: 10,
-                bottom: 0,
+                bottom: 10,
             },
             series: [
                 {
