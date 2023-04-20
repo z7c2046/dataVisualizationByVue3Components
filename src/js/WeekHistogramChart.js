@@ -99,6 +99,10 @@ export default class WeekHistogramChart {
                     borderRadius: 20,
                     backgroundColor: '#e8e8e8'
                 },
+                backgroundStyle: {
+                    color: '#e8e8e8',
+                    borderRadius: 10,
+                },
                 barCategoryGap: '20%',
             }]
         };

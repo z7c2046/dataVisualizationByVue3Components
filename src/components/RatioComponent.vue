@@ -10,7 +10,7 @@
             <!-- Number相关代码 -->
         </DataWidget>
 
-        <div ref="chartBox" class="chartBox">
+        <div ref="chartBox" class="chartBox" style="grid-area: chartBox;">
             <!-- 图表盒子 -->
             <HorizontalBarChart :item="item" :addCommasToNumber="addCommasToNumber" :serialNumber=1
                 style="grid-area: left-up;">
@@ -51,7 +51,12 @@ export default {
 <style scoped>
 .ratio {
     color: var(--theMainFontCorlor);
-
+    display: grid;
+    grid-template-rows: 1fr 2fr 3fr;
+    grid-template-areas:
+        "tittle"
+        "number"
+        "chartBox";
 }
 
 /* 图表栏 */
