@@ -138,8 +138,8 @@ export default {
 }
 
 .browserleaflets span {
+    color: white;
     background-color: #31b869;
-
     border-radius: 10px 10px 0 0;
 }
 
@@ -148,6 +148,7 @@ export default {
 }
 
 .shoppingList span {
+    color: white;
     background-color: #2879ff;
 }
 
@@ -156,6 +157,7 @@ export default {
 }
 
 .others span {
+    color: white;
     background-color: #17468a;
     border-radius: 0 0 10px 10px;
 }

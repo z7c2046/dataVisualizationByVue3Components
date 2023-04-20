@@ -308,8 +308,43 @@ body {
       "weekHistogram monthLine"
       "donut donut"
       "ratio ratio"
-      "line summary"
-    ;
+      "line summary";
+  }
+
+  #monthHistogram {
+    grid-area: monthHistogram;
+  }
+
+  #leaderBoard {
+    grid-area: leaderBoard;
+  }
+
+  #timeSpend {
+    grid-area: timeSpend;
+  }
+
+  #weekHistogram {
+    grid-area: weekHistogram;
+  }
+
+  #monthLine {
+    grid-area: monthLine;
+  }
+
+  #donut {
+    grid-area: donut;
+  }
+
+  #ratio {
+    grid-area: ratio;
+  }
+
+  #line {
+    grid-area: line;
+  }
+
+  #summary {
+    grid-area: summary;
   }
 }
 </style>
