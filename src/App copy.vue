@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="mainBox">
+
     <div id="wrap1" class="wrap" style="grid-area: wrap1;">
       <MonthHistogram :item="visibilityData.monthHistogram" :assets="assets" :addCommasToNumber="addCommasToNumber"
         :numberIncreaseRate="numberIncreaseRate">
@@ -32,34 +33,6 @@
       </TimeSpend>
     </div>
 
-  </div>
-
-
-  <div class="mainBoxMobile">
-    <!-- Mobile layout HTML goes here -->
-    <MonthHistogram :item="visibilityData.monthHistogram" :assets="assets" :addCommasToNumber="addCommasToNumber"
-      :numberIncreaseRate="numberIncreaseRate">
-    </MonthHistogram>
-    <LineChart :item="visibilityData.line" :assets="assets" :addCommasToNumber="addCommasToNumber"
-      :numberIncreaseRate="numberIncreaseRate">
-    </LineChart>
-    <LeaderBoard :item="visibilityData.leaderBoard" :assets="assets" :getRankChange="getRankChange">
-    </LeaderBoard>
-    <Donut :item="visibilityData.donut" :assets="assets" :addCommasToNumber="addCommasToNumber">
-    </Donut>
-    <WeekHistogram :item="visibilityData.weekHistogram" :assets="assets">
-    </WeekHistogram>
-    <SummaryComponent :item="visibilityData.summary" :assets="assets" :addCommasToNumber="addCommasToNumber"
-      :numberIncreaseRate="numberIncreaseRate">
-    </SummaryComponent>
-    <RatioComponent :item="visibilityData.ratio" :assets="assets" :addCommasToNumber="addCommasToNumber"
-      :numberIncreaseRate="numberIncreaseRate">
-    </RatioComponent>
-    <MonthLine :item="visibilityData.monthLine" :assets="assets" :addCommasToNumber="addCommasToNumber"
-      :numberIncreaseRate="numberIncreaseRate">
-    </MonthLine>
-    <TimeSpend :item="visibilityData.timeSpend" :assets="assets">
-    </TimeSpend>
   </div>
 </template>
 
@@ -319,59 +292,5 @@ body {
 #wrap3 {
   grid-template-columns: 1.72fr 1.36fr 1fr;
   grid-template-areas: "ratio monthLine timeSpend";
-}
-
-
-
-
-.mainBoxMobile {
-  display: none;
-}
-
-@media screen and (max-width: 400px) {
-  body {
-    background-color: var(--backGroundColor);
-    /* width: 100vw;
-    height: 100vh; */
-    display: block;
-  }
-
-  .mainBox {
-    display: none;
-  }
-
-  .mainBoxMobile {
-    display: block;
-  }
-
-  .mainBoxMobile {
-    height: 100%;
-    padding: 2%;
-    display: grid;
-    row-gap: 1%;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 1.5fr 1fr 1fr 1.5fr 1.5fr 1fr;
-    grid-template-areas:
-      "monthHistogram monthHistogram"
-      "leaderBoard timeSpend"
-      "weekHistogram monthLine"
-      "donut donut"
-      "ratio ratio"
-      "line summary";
-  }
-
-  .mainBoxMobile>div {
-    color: var(--theSmallHeaderCorlor);
-    background-color: var(--divBackGroundColor);
-    border-radius: 10px;
-  }
-
-  h1 {
-    font-size: large;
-  }
-
-  span {
-    font-size: 10px;
-  }
 }
 </style>

@@ -20,8 +20,6 @@ export default class MonthHistogramChart {
         this.disposeChart();
         this.myChart = echarts.init(this.dom, {
             renderer: 'canvas',
-            // width: 410,
-            // height: 70,
         });
 
         this.option = {
