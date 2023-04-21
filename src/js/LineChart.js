@@ -8,13 +8,17 @@ export default class LineChart {
         this.option = null;
     }
 
-    static getInstance() {
-        if (!LineChart._instance) {
-            Object.defineProperty(LineChart, "_instance", {
-                value: new LineChart(...arguments)
-            });
-        }
-        return LineChart._instance;
+    // static getInstance() {
+    //     if (!LineChart._instance) {
+    //         Object.defineProperty(LineChart, "_instance", {
+    //             value: new LineChart(...arguments)
+    //         });
+    //     }
+    //     return LineChart._instance;
+    // }
+
+    static getInstance(dom) {
+        return new LineChart(dom);
     }
 
     createChart() {

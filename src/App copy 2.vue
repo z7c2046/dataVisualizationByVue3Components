@@ -402,7 +402,7 @@ body {
     gap: 1%;
     grid-template-columns: 50% 50%;
     /* grid-template-rows: 1.3fr 1.2fr 1.2fr 1.3fr 1.3fr 1.2fr; */
-    grid-template-rows: 25% 20% 20% 25% 25% 20%;
+    grid-template-rows: 25% 18% 18% 25% 25% 18%;
     grid-template-areas:
       "monthHistogram monthHistogram"
       "leaderBoard timeSpend"

@@ -7,13 +7,17 @@ export default class MonthLineChart {
         this.myChart = null;
     }
 
-    static getInstance() {
-        if (!MonthLineChart._instance) {
-            Object.defineProperty(MonthLineChart, "_instance", {
-                value: new MonthLineChart(...arguments)
-            });
-        }
-        return MonthLineChart._instance;
+    // static getInstance() {
+    //     if (!MonthLineChart._instance) {
+    //         Object.defineProperty(MonthLineChart, "_instance", {
+    //             value: new MonthLineChart(...arguments)
+    //         });
+    //     }
+    //     return MonthLineChart._instance;
+    // }
+
+    static getInstance(dom) {
+        return new MonthLineChart(dom);
     }
 
     createChart() {

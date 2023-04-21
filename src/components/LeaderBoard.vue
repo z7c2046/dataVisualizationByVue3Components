@@ -85,6 +85,20 @@ export default {
     color: var(--theMainFontCorlor);
 }
 
+@media screen and (max-width: 400px) {
+    .topStores {
+        padding: 0 20px;
+    }
+
+    .topStores ol {
+        display: unset;
+    }
+
+    .topStores ol li::before {
+        content: unset;
+    }
+}
+
 .topStores .store-logo {
     width: 12px;
     height: 12px;

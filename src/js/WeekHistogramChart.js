@@ -7,13 +7,17 @@ export default class WeekHistogramChart {
         this.myChart = null;
     }
 
-    static getInstance() {
-        if (!WeekHistogramChart._instance) {
-            Object.defineProperty(WeekHistogramChart, "_instance", {
-                value: new WeekHistogramChart(...arguments)
-            });
-        }
-        return WeekHistogramChart._instance;
+    // static getInstance() {
+    //     if (!WeekHistogramChart._instance) {
+    //         Object.defineProperty(WeekHistogramChart, "_instance", {
+    //             value: new WeekHistogramChart(...arguments)
+    //         });
+    //     }
+    //     return WeekHistogramChart._instance;
+    // }
+
+    static getInstance(dom) {
+        return new WeekHistogramChart(dom);
     }
 
     createChart() {

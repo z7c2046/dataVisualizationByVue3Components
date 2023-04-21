@@ -7,13 +7,18 @@ export default class MonthHistogramChart {
         this.myChart = null;
     }
 
-    static getInstance() {
-        if (!MonthHistogramChart._instance) {
-            Object.defineProperty(MonthHistogramChart, "_instance", {
-                value: new MonthHistogramChart(...arguments)
-            });
-        }
-        return MonthHistogramChart._instance;
+    // 单例模式代码
+    // static getInstance() {
+    //     if (!MonthHistogramChart._instance) {
+    //         Object.defineProperty(MonthHistogramChart, "_instance", {
+    //             value: new MonthHistogramChart(...arguments)
+    //         });
+    //     }
+    //     return MonthHistogramChart._instance;
+    // }
+
+    static getInstance(dom) {
+        return new MonthHistogramChart(dom);
     }
 
     createChart() {

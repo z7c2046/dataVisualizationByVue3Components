@@ -13,7 +13,7 @@
         <!-- <div class="tittle2" style="grid-area: tittle2;">
 
         </div> -->
-        <TitleAndExpandArrow :item="item" :assets="assets" style="grid-area: tittle2;">
+        <TitleAndExpandArrow :item="item" :assets="assets" argus="name2" style="grid-area: tittle2;">
             <!-- 标题和扩展箭头代码 -->
         </TitleAndExpandArrow>
 

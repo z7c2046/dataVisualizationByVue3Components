@@ -14,13 +14,17 @@ export default class DonutChart {
     }
 
     // 定义一个静态方法getInstance，用于获取DonutChart的实例
-    static getInstance() {
-        if (!DonutChart._instance) {
-            Object.defineProperty(DonutChart, "_instance", {
-                value: new DonutChart(...arguments)
-            });
-        }
-        return DonutChart._instance;
+    // static getInstance() {
+    //     if (!DonutChart._instance) {
+    //         Object.defineProperty(DonutChart, "_instance", {
+    //             value: new DonutChart(...arguments)
+    //         });
+    //     }
+    //     return DonutChart._instance;
+    // }
+
+    static getInstance(dom) {
+        return new DonutChart(dom);
     }
 
     // 定义一个方法createChart，用于创建并渲染图表
@@ -45,7 +49,10 @@ export default class DonutChart {
             },
             // 配置极坐标系
             polar: {
-                radius: [25, 35] // 设置内外半径，调整图表大小
+                // radius: [25, 35] // 设置内外半径，调整图表大小
+                // radius: [23, 30]
+                // 修改createChart方法中的polar对象
+                radius: this.getRadius() // 根据屏幕宽度设置半径值
             },
             // 配置系列数据
             series: [
@@ -88,6 +95,19 @@ export default class DonutChart {
             this.option = null; // 将配置项置为null
         }
     }
+
+    // 获取设备屏幕宽度
+    getRadius() {
+        const devicePixelRatio = window.devicePixelRatio || 1; // 获取设备像素比
+        const screenWidth = window.innerWidth / devicePixelRatio; // 计算屏幕宽度
+
+        if (screenWidth < 400) {
+            return [23, 30];
+        } else {
+            return [25, 35];
+        }
+    }
+
 }
 
 
