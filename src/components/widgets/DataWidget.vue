@@ -28,7 +28,7 @@ export default {
 .number {
     padding: 0 20px;
     display: grid;
-    column-gap: 10px;
+    column-gap: 1%;
     grid-template-columns: 2fr 1fr 5fr;
     align-content: space-evenly;
     align-items: baseline;

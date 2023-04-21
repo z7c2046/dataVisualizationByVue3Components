@@ -105,6 +105,12 @@ export default {
     border-radius: 0 0 20px 20px;
 }
 
+@media screen and (max-width: 400px) {
+    .footer {
+        border-radius: 0 0 10px 10px;
+    }
+}
+
 .content h5,
 .footer h5 {
     color: var(--theDonutFooterH5ANDRemeanlingFontColor);

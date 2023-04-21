@@ -163,8 +163,8 @@ export default {
           area: "monthLine",
           name: "Income",
           isExpandArrows: false,
-          numberYesterday: 912365.63,
-          numberToday: 9851248.48,
+          numberYesterday: 612365.63,
+          numberToday: 981248.48,
         },
         timeSpend: {
           area: "timeSpend",
@@ -336,6 +336,19 @@ body {
     display: block;
   }
 
+  /* 禁止用户缩放 */
+  body {
+    touch-action: manipulation;
+  }
+
+  html {
+    touch-action: pan-x pan-y;
+    zoom: 1 !important;
+    user-scalable: no;
+    -ms-content-zooming: none;
+    -ms-touch-action: none;
+  }
+
   .mainBox {
     display: none;
   }
@@ -347,6 +360,7 @@ body {
   .mainBoxMobile {
     height: 100%;
     padding: 2%;
+    margin: 0 auto;
     display: grid;
     row-gap: 1%;
     grid-template-columns: 50% 50%;
