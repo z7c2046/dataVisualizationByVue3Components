@@ -79,7 +79,7 @@ export default class WeekHistogramChart {
                 }
             },
             grid: {
-                containLabel: false,
+                containLabel: true,
                 left: 10,
                 right: 10,
                 top: 20,
