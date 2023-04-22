@@ -266,7 +266,7 @@ export default {
 
 body {
   background-color: var(--backGroundColor);
-  width: 100vw;
+  width: 98vw;
   height: 100vh;
   display: grid;
   justify-content: center;
