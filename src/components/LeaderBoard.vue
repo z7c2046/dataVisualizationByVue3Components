@@ -94,6 +94,11 @@ export default {
         display: unset;
     }
 
+    .topStores ol li {
+        padding-bottom: 5px;
+        /* margin-bottom: 3px; */
+    }
+
     .topStores ol li::before {
         content: unset;
     }

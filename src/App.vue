@@ -378,7 +378,6 @@ body {
   html {
     touch-action: pan-x pan-y;
     zoom: 1 !important;
-    user-scalable: no;
     -ms-content-zooming: none;
     -ms-touch-action: none;
   }
