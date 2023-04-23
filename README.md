@@ -1,4 +1,4 @@
-# data-visualization
+# data-visualization 毕业设计 - 基于VUE的大数据可视化系统
 
 ## Project setup
 ```
