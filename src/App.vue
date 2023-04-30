@@ -265,6 +265,7 @@ export default {
 }
 
 body {
+  overflow: hidden;
   background-color: var(--backGroundColor);
   width: 98vw;
   height: 100vh;
