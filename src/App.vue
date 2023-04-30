@@ -386,6 +386,7 @@ body {
   .mainBox {
     opacity: 0;
     z-index: -999;
+    display: none;
   }
 
   .mainBoxMobile {
