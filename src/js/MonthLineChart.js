@@ -27,6 +27,10 @@ export default class MonthLineChart {
         });
         const dataCollection = [278, 288, 25, 109, 268, 96, 22, 178, 170, 93, 47];
 
+        // 判断是否是黑夜模式
+        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // 是就设置为白色，不然就是黑色
+        const circleColor = isDarkMode ? '#fff' : '#000';
         this.option = {
             xAxis: {
                 type: 'category',
@@ -83,7 +87,7 @@ export default class MonthLineChart {
                     },
                     symbolSize: 5, // 设置圆点大小
                     itemStyle: {
-                        color: '#000', // 设置圆点填充颜色
+                        color: circleColor, // 设置圆点填充颜色
                     },
                     lineStyle: {
                         width: 2,
