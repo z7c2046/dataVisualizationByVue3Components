@@ -153,6 +153,7 @@ export default {
           localisations: 972,
           blog: 655,
           xAxisMax: {
+            // 定义当天最大销售目标
             browersMax: 20000,
             favoritesMax: 10000,
             localisationsMax: 2000,

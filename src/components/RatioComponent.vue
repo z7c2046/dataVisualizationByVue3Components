@@ -52,7 +52,7 @@ export default {
 .ratio {
     color: var(--theMainFontCorlor);
     display: grid;
-    grid-template-rows: 1fr 2fr 3fr;
+    grid-template-rows: 1fr 2fr 4fr;
     grid-template-areas:
         "tittle"
         "number"
