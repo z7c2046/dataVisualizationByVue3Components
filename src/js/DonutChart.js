@@ -98,10 +98,10 @@ export default class DonutChart {
 
     // 获取设备屏幕宽度
     getRadius() {
-        const devicePixelRatio = window.devicePixelRatio || 1; // 获取设备像素比
-        const screenWidth = window.innerWidth / devicePixelRatio; // 计算屏幕宽度
+        const devicePixelRatio = window.devicePixelRatio || 1;
+        const screenWidth = window.innerWidth / devicePixelRatio;
 
-        if (screenWidth < 400) {
+        if (screenWidth < 768) {
             return [23, 30];
         } else {
             return [25, 35];
