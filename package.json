@@ -2,6 +2,7 @@
   "name": "data-visualization",
   "version": "0.2.0",
   "private": true,
+  "type": "module",
   "homepage": "https://z7c2046.github.io/dataVisualizationByVue3Components/",
   "scripts": {
     "dev": "vite",

@@ -1,63 +1,34 @@
 <template>
   <div id="app" class="mainBox">
-    <div id="wrap1" class="wrap" style="grid-area: wrap1;">
-      <MonthHistogram :item="visibilityData.monthHistogram" :assets="assets" :addCommasToNumber="addCommasToNumber"
-        :numberIncreaseRate="numberIncreaseRate">
-      </MonthHistogram>
-      <LineChart :item="visibilityData.line" :assets="assets" :addCommasToNumber="addCommasToNumber"
-        :numberIncreaseRate="numberIncreaseRate">
-      </LineChart>
-      <LeaderBoard :item="visibilityData.leaderBoard" :assets="assets" :getRankChange="getRankChange">
-      </LeaderBoard>
-    </div>
-
-    <div id="wrap2" class="wrap" style="grid-area: wrap2;">
-      <Donut :item="visibilityData.donut" :assets="assets" :addCommasToNumber="addCommasToNumber">
-      </Donut>
-      <WeekHistogram :item="visibilityData.weekHistogram" :assets="assets">
-      </WeekHistogram>
-      <SummaryComponent :item="visibilityData.summary" :assets="assets" :addCommasToNumber="addCommasToNumber"
-        :numberIncreaseRate="numberIncreaseRate">
-      </SummaryComponent>
-    </div>
-
-    <div id="wrap3" class="wrap" style="grid-area: wrap3;">
-      <RatioComponent :item="visibilityData.ratio" :assets="assets" :addCommasToNumber="addCommasToNumber"
-        :numberIncreaseRate="numberIncreaseRate">
-      </RatioComponent>
-      <MonthLine :item="visibilityData.monthLine" :assets="assets" :addCommasToNumber="addCommasToNumber"
-        :numberIncreaseRate="numberIncreaseRate">
-      </MonthLine>
-      <TimeSpend :item="visibilityData.timeSpend" :assets="assets">
-      </TimeSpend>
-    </div>
-
-  </div>
-
-
-  <div class="mainBoxMobile">
-    <!-- Mobile layout -->
     <MonthHistogram :item="visibilityData.monthHistogram" :assets="assets" :addCommasToNumber="addCommasToNumber"
       :numberIncreaseRate="numberIncreaseRate">
     </MonthHistogram>
+
     <LineChart :item="visibilityData.line" :assets="assets" :addCommasToNumber="addCommasToNumber"
       :numberIncreaseRate="numberIncreaseRate">
     </LineChart>
-    <DonutMobile :item="visibilityData.donut" :assets="assets" :addCommasToNumber="addCommasToNumber">
-    </DonutMobile>
-    <RatioComponent :item="visibilityData.ratio" :assets="assets" :addCommasToNumber="addCommasToNumber"
-      :numberIncreaseRate="numberIncreaseRate">
-    </RatioComponent>
+
+    <LeaderBoard :item="visibilityData.leaderBoard" :assets="assets" :getRankChange="getRankChange">
+    </LeaderBoard>
+
+    <Donut :item="visibilityData.donut" :assets="assets" :addCommasToNumber="addCommasToNumber">
+    </Donut>
+
     <WeekHistogram :item="visibilityData.weekHistogram" :assets="assets">
     </WeekHistogram>
+
     <SummaryComponent :item="visibilityData.summary" :assets="assets" :addCommasToNumber="addCommasToNumber"
       :numberIncreaseRate="numberIncreaseRate">
     </SummaryComponent>
-    <LeaderBoard :item="visibilityData.leaderBoard" :assets="assets" :getRankChange="getRankChange">
-    </LeaderBoard>
+
+    <RatioComponent :item="visibilityData.ratio" :assets="assets" :addCommasToNumber="addCommasToNumber"
+      :numberIncreaseRate="numberIncreaseRate">
+    </RatioComponent>
+
     <MonthLine :item="visibilityData.monthLine" :assets="assets" :addCommasToNumber="addCommasToNumber"
       :numberIncreaseRate="numberIncreaseRate">
     </MonthLine>
+
     <TimeSpend :item="visibilityData.timeSpend" :assets="assets">
     </TimeSpend>
   </div>
@@ -68,7 +39,6 @@ import MonthHistogram from './components/MonthHistogram.vue';
 import LineChart from './components/LineChart.vue';
 import LeaderBoard from './components/LeaderBoard.vue';
 import Donut from './components/DonutChart.vue';
-import DonutMobile from './components/DonutChart.vue';
 import WeekHistogram from './components/WeekHistogram.vue';
 import SummaryComponent from './components/SummaryComponent.vue';
 import RatioComponent from './components/RatioComponent.vue';
@@ -99,7 +69,6 @@ export default {
     LineChart,
     LeaderBoard,
     Donut,
-    DonutMobile,
     WeekHistogram,
     SummaryComponent,
     RatioComponent,
@@ -280,6 +249,7 @@ export default {
   padding: 0;
 }
 
+/* ===================== PC 端布局 ===================== */
 body {
   overflow: hidden;
   background-color: var(--backGroundColor);
@@ -296,61 +266,24 @@ body {
 .mainBox {
   width: 1200px;
   height: 600px;
+
   display: grid;
-  row-gap: 40px;
+  gap: 40px;
+  grid-template-columns: 1.72fr 1.36fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
-    "wrap1"
-    "wrap2"
-    "wrap3";
-
-  position: absolute;
-  z-index: 999;
-  opacity: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    "monthHistogram line        leaderBoard"
+    "donut          weekHistogram summary"
+    "ratio          monthLine   timeSpend";
 }
 
-.mainBox .wrap {
-  display: grid;
-  column-gap: 40px;
+.mainBox > div {
+  background-color: var(--divBackGroundColor);
+  border-radius: 20px;
   color: var(--theSmallHeaderCorlor);
 }
 
-.mainBox .wrap>div {
-  background-color: var(--divBackGroundColor);
-  border-radius: 20px;
-}
-
-#wrap1 {
-  grid-template-columns: 1.72fr 1.36fr 1fr;
-  grid-template-areas: "monthHistogram line leaderBoard";
-}
-
-#wrap2 {
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: "donut weekHistogram summary";
-}
-
-#wrap3 {
-  grid-template-columns: 1.72fr 1.36fr 1fr;
-  grid-template-areas: "ratio monthLine timeSpend";
-}
-
-
 /* ===================== 移动端布局 ===================== */
-.mainBoxMobile {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-}
-
-/* 断点调整为 768px 覆盖主流手机 */
 @media screen and (max-width: 768px) {
   body {
     background-color: var(--backGroundColor);
@@ -360,10 +293,7 @@ body {
     width: 100vw;
     height: auto;
     min-height: 100vh;
-  }
-
-  /* 禁止用户双指缩放 */
-  body {
+    /* 禁止用户双指缩放 */
     touch-action: manipulation;
   }
 
@@ -371,29 +301,14 @@ body {
     touch-action: pan-x pan-y;
   }
 
-  /* 隐藏 PC 端布局 */
   .mainBox {
-    opacity: 0;
-    z-index: -999;
-    display: none;
-  }
-
-  /* 激活移动端布局 */
-  .mainBoxMobile {
-    opacity: 1;
-    z-index: 1;
-    pointer-events: auto;
-    position: relative;
-    top: auto;
-    left: auto;
-
     width: 100%;
+    height: auto;
     padding: 12px;
     box-sizing: border-box;
 
-    display: grid;
-    gap: 12px;
     /* 移动端网格：2列等宽 */
+    gap: 12px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     grid-template-areas:
@@ -406,29 +321,26 @@ body {
       "timeSpend      timeSpend     ";
   }
 
-  /* 所有子组件的卡片样式 */
-  .mainBoxMobile > div {
-    color: var(--theSmallHeaderCorlor);
-    background-color: var(--divBackGroundColor);
+  .mainBox > div {
     border-radius: 14px;
     min-height: 140px;
   }
 
   /* 全宽卡片需要更多高度 */
-  .mainBoxMobile > div.monthHistogram,
-  .mainBoxMobile > div.line {
+  .mainBox > div.monthHistogram,
+  .mainBox > div.line {
     min-height: 160px;
   }
 
-  .mainBoxMobile > div.donut {
+  .mainBox > div.donut {
     min-height: 180px;
   }
 
-  .mainBoxMobile > div.ratio {
+  .mainBox > div.ratio {
     min-height: 200px;
   }
 
-  .mainBoxMobile > div.timeSpend {
+  .mainBox > div.timeSpend {
     min-height: 150px;
   }
 
