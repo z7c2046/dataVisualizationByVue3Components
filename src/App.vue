@@ -31,6 +31,9 @@
 
     <TimeSpend :item="visibilityData.timeSpend" :assets="assets">
     </TimeSpend>
+
+    <!-- 7个卡片详情展开弹窗管理器 -->
+    <WidgetDetailModal :active-modal="activeModal" @close="closeModal" />
   </div>
 </template>
 
@@ -44,6 +47,10 @@ import SummaryComponent from './components/SummaryComponent.vue';
 import RatioComponent from './components/RatioComponent.vue';
 import MonthLine from './components/MonthLine.vue';
 import TimeSpend from './components/TimeSpend.vue';
+import WidgetDetailModal from './components/modals/WidgetDetailModal.vue';
+
+// 导入弹窗设计系统样式
+import '@/assets/modal.css';
 
 // 使用 ES import 替代 require()（Vite 不支持 require）
 import expandArrowURL from '@/assets/images/resize.png';
@@ -74,9 +81,16 @@ export default {
     RatioComponent,
     MonthLine,
     TimeSpend,
+    WidgetDetailModal,
+  },
+  provide() {
+    return {
+      openWidgetModal: this.openModal
+    };
   },
   data() {
     return {
+      activeModal: null,
       visibilityData: {
         monthHistogram: {
           area: "monthHistogram",
@@ -112,7 +126,7 @@ export default {
         donut: {
           area: "donut",
           name: "Today goals completion",
-          isExpandArrows: false,
+          isExpandArrows: true,
           isThe4th: true,
           the4thUniqueFontColor: "#95b6f9",
           firstNumber: 78.09,
@@ -151,14 +165,14 @@ export default {
         monthLine: {
           area: "monthLine",
           name: "Income",
-          isExpandArrows: false,
+          isExpandArrows: true,
           numberYesterday: 612365.63,
           numberToday: 981248.48,
         },
         timeSpend: {
           area: "timeSpend",
           name: "Avg. time spent in application",
-          isExpandArrows: true,
+          isExpandArrows: false,
         }
       },
       assets: {
@@ -174,6 +188,12 @@ export default {
     }
   },
   methods: {
+    openModal(modalKey) {
+      this.activeModal = modalKey;
+    },
+    closeModal() {
+      this.activeModal = null;
+    },
     addCommasToNumber(num) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
