@@ -38,6 +38,9 @@ export default class HorizontalBarChart {
         const xAxisMax = this.obj.xAxisMax[maxKey];
 
         this.option = {
+            animation: true,
+            animationDuration: 1200,
+            animationEasing: 'cubicOut',
             xAxis: {
                 show: false,
                 max: xAxisMax,
@@ -58,6 +61,10 @@ export default class HorizontalBarChart {
                 barWidth: '30px',
                 data: [data],
                 showBackground: true,
+                animation: true,
+                animationDuration: 1200,
+                animationEasing: 'cubicOut',
+                animationDelay: (this.serialNumber - 1) * 120,
                 itemStyle: {
                     color: '#cecece',
                     borderRadius: 10,

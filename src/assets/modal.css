@@ -83,12 +83,17 @@
 }
 
 /* Animations */
-.modal-enter-active .modal-backdrop {
-  animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
 }
 
-.modal-leave-active .modal-backdrop {
-  animation: modalFadeOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.modal-enter-active {
+  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-enter-active .modal-backdrop {
+  animation: modalFadeIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .modal-enter-active .modal-card {
@@ -96,25 +101,53 @@
   transform-origin: center center;
 }
 
+.modal-leave-active {
+  transition: opacity 0.24s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.modal-leave-active .modal-backdrop {
+  animation: modalFadeOut 0.24s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
 .modal-leave-active .modal-card {
-  animation: zoomOut 0.2s cubic-bezier(0.4, 0, 1, 1) forwards;
+  animation: zoomOut 0.24s cubic-bezier(0.4, 0, 1, 1) forwards;
   transform-origin: center center;
 }
 
 @keyframes modalFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
 }
 
 @keyframes modalFadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
 }
 
 @keyframes zoomInSpring {
   0% {
     opacity: 0;
-    transform: scale(0.92) translateY(24px);
+    transform: scale(0.9) translateY(24px);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.01) translateY(-2px);
   }
   100% {
     opacity: 1;
@@ -125,11 +158,11 @@
 @keyframes zoomOut {
   0% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
   100% {
     opacity: 0;
-    transform: scale(0.94) translateY(12px);
+    transform: scale(0.94) translateY(14px);
   }
 }
 

@@ -58,8 +58,12 @@ export default {
         const progressBar = this.$refs.progressBar;
         this.chartInstance = DonutChart.getInstance(progressBar);
         this.chartInstance.createChart();
-        this.$nextTick(() => this.resizeChart());
-        this.resizeObserver = new ResizeObserver(() => this.resizeChart());
+        this.resizeObserver = new ResizeObserver(() => {
+            if (this._raf) cancelAnimationFrame(this._raf);
+            this._raf = requestAnimationFrame(() => {
+                this.resizeChart();
+            });
+        });
         this.resizeObserver.observe(progressBar);
     },
     methods: {
@@ -68,6 +72,7 @@ export default {
         },
     },
     beforeUnmount() {
+        if (this._raf) cancelAnimationFrame(this._raf);
         this.resizeObserver?.disconnect();
         this.chartInstance?.disposeChart();
     }

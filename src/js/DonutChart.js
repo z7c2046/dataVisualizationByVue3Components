@@ -31,7 +31,12 @@ export default class DonutChart {
     createChart() {
         this.disposeChart(); // 清理已有的图表实例
         this.myChart = echarts.init(this.dom, null); // 初始化echarts实例
+        const targetValue = 78.09;
+
         this.option = {
+            animation: true,
+            animationDuration: 1500,
+            animationEasing: 'cubicOut',
             // 配置角度轴
             angleAxis: {
                 show: false, // 不显示角度轴
@@ -49,46 +54,63 @@ export default class DonutChart {
             },
             // 配置极坐标系
             polar: {
-                // radius: [25, 35] // 设置内外半径，调整图表大小
-                // radius: [23, 30]
-                // 修改createChart方法中的polar对象
                 radius: this.getRadius() // 根据屏幕宽度设置半径值
             },
             // 配置系列数据
             series: [
                 {
                     type: 'bar', // 类型为柱状图
-                    data: [78.09], // 数据
+                    data: [0], // 初始从 0 生长
                     coordinateSystem: 'polar', // 使用极坐标系
                     roundCap: true, // 柱状图顶部圆角
                     itemStyle: {
                         color: (params) => {
-                            return this.colorList[params.dataIndex]; // 设置颜色
+                            return this.colorList[params.dataIndex] || '#FFF'; // 设置颜色
                         }
                     },
-                    animationEasing: 'bounceOut', // 动画缓动效果
+                    animation: true,
+                    animationDuration: 1500,
+                    animationEasing: 'cubicOut',
                     barGap: '-100%', // 柱间距离
                     z: 200 // z轴层叠顺序
                 },
                 {
-                    type: 'bar', // 类型为柱状图
-                    data: [this.maxCount, this.maxCount, this.maxCount], // 数据
+                    type: 'bar', // 类型为背景环
+                    data: [this.maxCount], // 数据
                     coordinateSystem: 'polar', // 使用极坐标系
-                    roundCap: true, // 柱状图顶部圆角
+                    roundCap: true, // 顶部圆角
                     itemStyle: {
                         color: (params) => {
-                            return this.bgList[params.dataIndex]; // 设置背景颜色
+                            return this.bgList[params.dataIndex] || '#174789'; // 设置背景颜色
                         }
                     },
+                    animation: false,
                     barGap: '-100%' // 柱间距离
                 }
             ]
         };
-        // 将配置项设置到图表实例中并进行渲染
+        // 初始渲染
         this.myChart.setOption(this.option, true);
+
+        // 下一帧触发顺着圆环生长动画
+        this._animTimer = setTimeout(() => {
+            if (this.myChart) {
+                this.myChart.setOption({
+                    series: [
+                        {
+                            data: [targetValue]
+                        }
+                    ]
+                });
+            }
+        }, 50);
     }
     // 定义一个方法disposeChart，用于清理图表实例
     disposeChart() {
+        if (this._animTimer) {
+            clearTimeout(this._animTimer);
+            this._animTimer = null;
+        }
         if (this.myChart) {
             this.myChart.dispose(); // 销毁已有的echarts实例
             this.myChart = null; // 将图表实例置为null

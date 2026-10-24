@@ -70,22 +70,33 @@ export default {
 }
 
 .tittle .expanArrow {
-    display: grid;
+    display: flex;
     justify-content: center;
     align-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
     cursor: pointer;
-    /* 控制箭头在这个盒子里面居中对齐 */
+    transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tittle .expanArrow:hover {
+    background-color: rgba(41, 118, 255, 0.12);
+}
+
+.tittle .expanArrow:active {
+    transform: scale(0.88);
 }
 
 .tittle .expanArrow img {
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     cursor: pointer;
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s;
 }
 
-.tittle .expanArrow img:hover {
-    transform: scale(1.3);
-    opacity: 0.85;
+.tittle .expanArrow:hover img {
+    transform: scale(1.15) rotate(45deg);
+    opacity: 1;
 }
 </style>

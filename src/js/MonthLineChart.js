@@ -32,6 +32,9 @@ export default class MonthLineChart {
         // 是就设置为白色，不然就是黑色
         const circleColor = isDarkMode ? '#fff' : '#000';
         this.option = {
+            animation: true,
+            animationDuration: 1800,
+            animationEasing: 'cubicInOut',
             xAxis: {
                 type: 'category',
                 splitLine: {
@@ -76,21 +79,23 @@ export default class MonthLineChart {
                     data: dataCollection,
                     type: 'line',
                     smooth: true, // 圆滑显示折线
+                    animation: true,
+                    animationDuration: 1800,
+                    animationEasing: 'cubicInOut',
                     symbol: function (value, params) {
                         const dataIndex = params.dataIndex;
-                        // 如果当前数据点是数组中的最后一个元素，则将symbol设置为'circle'，否则设置为'none'
                         if (dataIndex === dataCollection.length - 1) {
-                            return 'circle';//设置圆点样式
+                            return 'circle';
                         } else {
-                            return 'none';// 取消圆点
+                            return 'none';
                         }
                     },
-                    symbolSize: 5, // 设置圆点大小
+                    symbolSize: 5,
                     itemStyle: {
-                        color: circleColor, // 设置圆点填充颜色
+                        color: circleColor,
                     },
                     lineStyle: {
-                        width: 2,
+                        width: 2.5,
                         color: {
                             type: 'linear',
                             x: 0,
@@ -114,10 +119,22 @@ export default class MonthLineChart {
         };
 
         this.myChart.setOption(this.option, true);
+        this._resizeHandler = () => {
+            if (this._rafId) cancelAnimationFrame(this._rafId);
+            this._rafId = requestAnimationFrame(() => {
+                this.myChart?.resize();
+            });
+        };
+        window.addEventListener('resize', this._resizeHandler);
     }
 
     disposeChart() {
+        if (this._rafId) {
+            cancelAnimationFrame(this._rafId);
+            this._rafId = null;
+        }
         if (this.myChart) {
+            window.removeEventListener('resize', this._resizeHandler);
             this.myChart.dispose();
             this.myChart = null;
             this.option = null;

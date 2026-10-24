@@ -70,9 +70,19 @@ export default {
     },
     mounted() {
         this.updateTime();
-        setInterval(this.updateTime, 1000); // 每 1000 毫秒（1 秒）更新一次时间
-        window.addEventListener('resize', this.handleResize); // 添加窗口大小变化事件侦听器
-        this.handleResize(); // 初始化时调用一次，以处理可能的小屏幕
+        this.timerId = setInterval(this.updateTime, 1000);
+        this._resizeHandler = this.handleResize.bind(this);
+        window.addEventListener('resize', this._resizeHandler);
+        this.handleResize();
+    },
+    beforeUnmount() {
+        if (this.timerId) {
+            clearInterval(this.timerId);
+            this.timerId = null;
+        }
+        if (this._resizeHandler) {
+            window.removeEventListener('resize', this._resizeHandler);
+        }
     },
     methods: {
         updateTime() {

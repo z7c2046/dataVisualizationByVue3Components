@@ -28,6 +28,9 @@ export default class MonthHistogramChart {
         });
 
         this.option = {
+            animation: true,
+            animationDuration: 1200,
+            animationEasing: 'cubicOut',
             xAxis: {
                 type: 'category',
                 data: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
@@ -63,19 +66,35 @@ export default class MonthHistogramChart {
                     barWidth: '5px',
                     itemStyle: {
                         color: '#2976ff',
-                        barBorderRadius: 20,
+                        borderRadius: 20,
                     },
                     barCategoryGap: '50%',
+                    animation: true,
+                    animationDuration: 1000,
+                    animationEasing: 'cubicOut',
+                    // 从左向右依次从底部升起生长的波浪律动
+                    animationDelay: function (idx) {
+                        return idx * 28;
+                    },
                 },
             ],
         };
 
         this.myChart.setOption(this.option, true);
-        this._resizeHandler = this.myChart.resize.bind(this.myChart);
+        this._resizeHandler = () => {
+            if (this._rafId) cancelAnimationFrame(this._rafId);
+            this._rafId = requestAnimationFrame(() => {
+                this.myChart?.resize();
+            });
+        };
         window.addEventListener('resize', this._resizeHandler);
     }
 
     disposeChart() {
+        if (this._rafId) {
+            cancelAnimationFrame(this._rafId);
+            this._rafId = null;
+        }
         if (this.myChart) {
             window.removeEventListener('resize', this._resizeHandler);
             this.myChart.dispose();

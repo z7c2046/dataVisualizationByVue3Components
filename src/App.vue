@@ -187,7 +187,24 @@ export default {
 
     }
   },
+  created() {
+    this.calculateRankChanges();
+  },
   methods: {
+    calculateRankChanges() {
+      const stores = this.visibilityData.leaderBoard.data;
+      const yesterdaySorted = [...stores].sort((a, b) => b.viewsYesterday - a.viewsYesterday);
+      const yesterdayRankMap = new Map();
+      yesterdaySorted.forEach((item, idx) => yesterdayRankMap.set(item.name, idx));
+
+      this._rankChangeMap = new Map();
+      stores.forEach((store, todayRank) => {
+        const yesterdayRank = yesterdayRankMap.get(store.name) ?? todayRank;
+        const diff = yesterdayRank - todayRank;
+        this._rankChangeMap.set(store.name, diff);
+        store.rankChange = diff;
+      });
+    },
     openModal(modalKey) {
       this.activeModal = modalKey;
     },
@@ -201,19 +218,13 @@ export default {
       const increaseRate = ((today - yesterday) / yesterday * 100).toFixed(2);
       return increaseRate;
     },
-    // 计算昨天和今天的排名变化
+    // 计算昨天和今天的排名变化 (O(1) 缓存读取)
     getRankChange(store) {
-      // 获取今天的排名
-      const todayRank = this.visibilityData.leaderBoard.data.findIndex(item => item.name === store.name);
-
-      // 对昨天的浏览量进行排序，以计算昨天的排名
-      const yesterdayData = [...this.visibilityData.leaderBoard.data].sort((a, b) => b.viewsYesterday - a.viewsYesterday);
-
-      // 获取昨天的排名
-      const yesterdayRank = yesterdayData.findIndex(item => item.name === store.name);
-
-      // 计算排名变化并返回结果
-      return yesterdayRank - todayRank;
+      if (store && store.rankChange !== undefined) return store.rankChange;
+      if (this._rankChangeMap && store && this._rankChangeMap.has(store.name)) {
+        return this._rankChangeMap.get(store.name);
+      }
+      return 0;
     },
   },
 };

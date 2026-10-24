@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <Transition name="modal">
+    <Transition name="modal" :duration="{ enter: 380, leave: 240 }">
       <div
         v-if="show"
         class="modal-teleport-root"

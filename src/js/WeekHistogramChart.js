@@ -33,6 +33,9 @@ export default class WeekHistogramChart {
         const yAxisMax = 200;
 
         this.option = {
+            animation: true,
+            animationDuration: 1200,
+            animationEasing: 'cubicOut',
             xAxis: {
                 type: 'category',
                 data: xAxisData,
@@ -90,6 +93,13 @@ export default class WeekHistogramChart {
                 type: 'bar',
                 showBackground: true,
                 barWidth: '10px',
+                animation: true,
+                animationDuration: 1000,
+                animationEasing: 'cubicOut',
+                // 7根周柱逐根从底部拔地而起
+                animationDelay: function (idx) {
+                    return idx * 75;
+                },
                 itemStyle: {
                     color: function (params) {
                         if (params.dataIndex === todayIndex) {
@@ -112,10 +122,22 @@ export default class WeekHistogramChart {
         };
 
         this.myChart.setOption(this.option, true);
+        this._resizeHandler = () => {
+            if (this._rafId) cancelAnimationFrame(this._rafId);
+            this._rafId = requestAnimationFrame(() => {
+                this.myChart?.resize();
+            });
+        };
+        window.addEventListener('resize', this._resizeHandler);
     }
 
     disposeChart() {
+        if (this._rafId) {
+            cancelAnimationFrame(this._rafId);
+            this._rafId = null;
+        }
         if (this.myChart) {
+            window.removeEventListener('resize', this._resizeHandler);
             this.myChart.dispose();
             this.myChart = null;
             this.option = null;
