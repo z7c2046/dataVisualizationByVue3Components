@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="mainBox">
+  <div class="mainBox">
     <MonthHistogram :item="visibilityData.monthHistogram" :assets="assets" :addCommasToNumber="addCommasToNumber"
       :numberIncreaseRate="numberIncreaseRate">
     </MonthHistogram>
@@ -31,10 +31,10 @@
 
     <TimeSpend :item="visibilityData.timeSpend" :assets="assets">
     </TimeSpend>
-
-    <!-- 7个卡片详情展开弹窗管理器 -->
-    <WidgetDetailModal :active-modal="activeModal" @close="closeModal" />
   </div>
+
+  <!-- 7个卡片详情展开弹窗管理器 -->
+  <WidgetDetailModal :active-modal="activeModal" @close="closeModal" />
 </template>
 
 <script>
@@ -267,109 +267,115 @@ export default {
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-/* ===================== PC 端布局 ===================== */
+html {
+  touch-action: pan-x pan-y;
+}
+
 body {
-  overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
   background-color: var(--backGroundColor);
-  width: 98vw;
-  height: 100vh;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  font-family: "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  color: var(--theMainFontCorlor);
+  font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 900;
   position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(12px, 2.5vw, 28px);
+  touch-action: manipulation;
 }
 
+/* ===================== 现代 Bento 流式栅格看板 ===================== */
 .mainBox {
-  width: 1200px;
-  height: 600px;
-
+  width: 100%;
+  max-width: 1360px;
+  margin: auto;
   display: grid;
-  gap: 40px;
+  gap: clamp(14px, 1.8vw, 24px);
+
+  /* PC 宽屏默认：3 列黄金流式比例，自适应内容高度 */
   grid-template-columns: 1.72fr 1.36fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas:
-    "monthHistogram line        leaderBoard"
-    "donut          weekHistogram summary"
-    "ratio          monthLine   timeSpend";
+  grid-auto-rows: minmax(180px, 1fr);
+  box-sizing: border-box;
 }
 
-.mainBox > div {
+/* 统一单套卡片视觉基准与优雅微动效 */
+.mainBox > .card-item {
   background-color: var(--divBackGroundColor);
-  border-radius: 20px;
+  border-radius: clamp(14px, 1.5vw, 20px);
   color: var(--theSmallHeaderCorlor);
+  min-height: 180px;
+  box-sizing: border-box;
+  grid-area: auto !important; /* 彻底解除旧穷举 grid-template-areas 约束 */
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
+  box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
 }
 
-/* ===================== 移动端布局 ===================== */
-@media screen and (max-width: 768px) {
-  body {
-    background-color: var(--backGroundColor);
-    display: block;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 100vw;
-    height: auto;
-    min-height: 100vh;
-    /* 禁止用户双指缩放 */
-    touch-action: manipulation;
+.mainBox > .card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+}
+
+/* ===================== 平板端响应式 Bento 栅格 (681px ~ 1100px) ===================== */
+@media screen and (max-width: 1100px) and (min-width: 681px) {
+  .mainBox {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(170px, auto);
+    gap: 16px;
   }
 
-  html {
-    touch-action: pan-x pan-y;
+  /* 宽图表卡片自适应跨两列，提供舒展的水平数据图表展示空间 */
+  .mainBox > .monthHistogram,
+  .mainBox > .line,
+  .mainBox > .ratio,
+  .mainBox > .timeSpend {
+    grid-column: 1 / -1;
+  }
+
+  /* 紧凑指标类卡片自然 1 列两两并排 */
+  .mainBox > .donut,
+  .mainBox > .weekHistogram,
+  .mainBox > .leaderBoard,
+  .mainBox > .summary,
+  .mainBox > .monthLine {
+    grid-column: span 1;
+  }
+}
+
+/* ===================== 移动端流式单列 Bento 栅格 (<= 680px) ===================== */
+@media screen and (max-width: 680px) {
+  body {
+    padding: 10px;
+    display: block;
   }
 
   .mainBox {
     width: 100%;
-    height: auto;
-    padding: 12px;
-    box-sizing: border-box;
-
-    /* 移动端网格：2列等宽 */
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(160px, auto);
     gap: 12px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-      "monthHistogram monthHistogram"
-      "line           line          "
-      "donut          donut         "
-      "ratio          ratio         "
-      "weekHistogram  leaderBoard   "
-      "monthLine      summary       "
-      "timeSpend      timeSpend     ";
   }
 
-  .mainBox > div {
-    border-radius: 14px;
-    min-height: 140px;
-  }
-
-  /* 全宽卡片需要更多高度 */
-  .mainBox > div.monthHistogram,
-  .mainBox > div.line {
+  .mainBox > .card-item {
+    grid-column: span 1 !important;
     min-height: 160px;
-  }
-
-  .mainBox > div.donut {
-    min-height: 180px;
-  }
-
-  .mainBox > div.ratio {
-    min-height: 200px;
-  }
-
-  .mainBox > div.timeSpend {
-    min-height: 150px;
+    border-radius: 14px;
   }
 
   h1 {
-    font-size: large;
+    font-size: 1.25rem;
   }
 
   span {
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 </style>

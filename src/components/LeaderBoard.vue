@@ -1,5 +1,5 @@
 <template>
-    <div :id="item.area" :class="item.area" :style="{ 'grid-area': item.area }">
+    <div :id="item.area" :class="['card-item', item.area]">
         <TitleAndExpandArrow :item="item" :assets="assets">
             <!-- 标题和扩展箭头代码 -->
         </TitleAndExpandArrow>
